@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import Post from './post'
 
 class PostItBoard extends React.Component {
     constructor(props) {
@@ -28,15 +29,7 @@ class PostItBoard extends React.Component {
     render() {
         const posts = this.state.posts.map(post => {
             return (
-                <div key={post.id} className="card mb-3">
-                    <div className="card-body">
-                        <h5 className="card-title">{post.title}</h5>
-                        <p>{post.body}</p>
-                    </div>
-                    <div className="card-footer">
-                        Comments go here
-                    </div>
-                </div>
+                <Post post={post}/>
             );
         });
 
