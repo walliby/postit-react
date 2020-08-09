@@ -56,9 +56,19 @@ export default class Post extends React.Component {
     }
 
     render() {
-        const comments = this.props.post.comments.map(comment =>
-            <Comment key={comment.id} comment={comment}/>
-        );
+        let commentList;
+
+        if (this.state.showComments && this.commentsCount()) {
+            const comments = this.props.post.comments.map(comment =>
+                <Comment key={comment.id} comment={comment}/>
+            );
+
+            commentList = (
+                <ul className="list-group mt-3" role="region" aria-live="polite">
+                    {comments}
+                </ul>
+            );
+        }
 
         return (
             <div className="card mb-3">
@@ -70,10 +80,7 @@ export default class Post extends React.Component {
                 </div>
                 <div className="card-footer">
                     <ToggleLink handleClick={this.toggleComments} label={`${this.commentsCount()} comments`}/>
-                    {this.state.showComments && this.commentsCount() 
-                        ? <ul className="list-group mt-3" role="region" aria-live="polite">{comments}</ul> 
-                        : ''
-                    }
+                    {commentList}
                 </div>
             </div>
         );
