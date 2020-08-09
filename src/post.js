@@ -21,6 +21,17 @@ function Address(props) {
     );
 }
 
+function ToggleLink(props) {
+    return (
+        <button 
+            type="button" 
+            className="btn btn-link p-0"
+            onClick={props.handleClick}
+            aria-label={`${props.label} Click to expand.`}
+        >{props.label}</button>
+    );
+}
+
 export default class Post extends React.Component {
     constructor(props) {
         super(props);
@@ -53,22 +64,12 @@ export default class Post extends React.Component {
             <div className="card mb-3">
                 <div className="card-body">
                     <h5 className="card-title">{this.props.post.title}</h5>
-                    <button 
-                        type="button"
-                        className="btn btn-link p-0"
-                        onClick={this.toggleUserInfo}
-                        aria-label={`Author: ${this.props.post.user.name}. Click to toggle contact information.`}
-                    >{this.props.post.user.name}</button>
+                    <ToggleLink handleClick={this.toggleUserInfo} label={this.props.post.user.name}/>
                     {this.state.showUserInfo ? <Address user={this.props.post.user}/> : ''}
                     <p className="card-text">{this.props.post.body}</p>
                 </div>
                 <div className="card-footer">
-                    <button 
-                        type="button" 
-                        className="btn btn-link card-link"
-                        onClick={this.toggleComments}
-                        aria-label={`${this.commentsCount()} comments. Click to expand.`}
-                    >{this.commentsCount()} comments</button>
+                    <ToggleLink handleClick={this.toggleComments} label={`${this.commentsCount()} comments`}/>
                     {this.state.showComments && this.commentsCount() 
                         ? <ul className="list-group mt-3" role="region" aria-live="polite">{comments}</ul> 
                         : ''
