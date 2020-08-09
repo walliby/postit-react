@@ -3,6 +3,19 @@ import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import Post from './Post';
 
+function PageButton(props) {
+    return (
+        <button
+            ref={props.reference}
+            onClick={props.handleClick}
+            type="button"
+            className="btn btn-info"
+            aria-label={`${props.label} page of posts`}
+            disabled={props.disabled}
+        >{props.label}</button>
+    );
+}
+
 class PostItBoard extends React.Component {
     constructor(props) {
         super(props);
@@ -99,22 +112,18 @@ class PostItBoard extends React.Component {
             <div>
                 <h1>Posts</h1>
                 <div className="d-flex justify-content-between mb-2">
-                    <button
-                        onClick={this.fetchPreviousPage}
-                        ref={this.prevButtonRef}
-                        type="button"
-                        className="btn btn-info"
-                        aria-label="Previous records"
+                    <PageButton 
+                        reference={this.prevButtonRef}
+                        label="Prev"
+                        handleClick={this.fetchPreviousPage}
                         disabled={this.disablePrevButton()}
-                    >Prev</button>
-                    <button
-                        onClick={this.fetchNextPage}
-                        ref={this.nextButtonRef}
-                        type="button"
-                        className="btn btn-info"
-                        aria-label="Next records"
+                    />
+                    <PageButton 
+                        reference={this.nextButtonRef}
+                        label="Next"
+                        handleClick={this.fetchNextPage}
                         disabled={this.disableNextButton()}
-                    >Next</button>
+                    />
                 </div>
                 {body}
             </div>
