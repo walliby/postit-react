@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import Post from './post'
+import Post from './Post'
 
 class PostItBoard extends React.Component {
     constructor(props) {
@@ -14,7 +14,9 @@ class PostItBoard extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/posts')
+        const endPoint = `https://jsonplaceholder.typicode.com/posts?_embed=comments&_expand=user`;
+
+        fetch(endPoint)
             .then(res => res.json())
             .then(
                 result => {
@@ -29,7 +31,7 @@ class PostItBoard extends React.Component {
     render() {
         const posts = this.state.posts.map(post => {
             return (
-                <Post post={post}/>
+                <Post key={post.id} post={post}/>
             );
         });
 
